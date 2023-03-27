@@ -1,5 +1,13 @@
-import React from 'react'
+import React from "react";
+import Template from "./Template";
 
-const App = () => <h1>Hello 🤞 React!</h1>
+function App() {
+  return (
+    <>
+      <h1 className="title">Random Portfolio React JS</h1>
+      <Template />
+    </>
+  );
+}
 
-export { App }
+export { App };
