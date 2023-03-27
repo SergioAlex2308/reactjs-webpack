@@ -1,7 +1,11 @@
-$base-color: #C6538C;
+$base-color: #0C0C0C;
 $color: rgba(black, 0.88);
 
 body {
 	background-color: $base-color;
 	color: $color;
+}
+.title {
+	text-align: center;
+	color: white;
 }

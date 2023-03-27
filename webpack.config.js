@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -40,12 +41,19 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.s[ac]ss$/,
+				test: /\.s[ac]ss$/i,
 				use: [
-					'style-loader',
-					'css-loader',
-					'sass-loader',
-				]
+					// Creates `style` nodes from JS strings
+					"style-loader",
+					// Translates CSS into CommonJS
+					"css-loader",
+					// Compiles Sass to CSS
+					"sass-loader",
+				],
+			},
+			{
+				test: /\.css$/i,
+				use: ["style-loader", "css-loader", "sass-loader"],
 			},
 			{
 				test: /\.(woff | woff2)$/,
@@ -60,7 +68,15 @@ module.exports = {
 						esModule: false,
 					}
 				}
-			}
+			},
+			{
+				test: /\.(png|jpe?g|gif)$/i,
+				use: [
+					{
+						loader: 'file-loader',
+					},
+				],
+			},
 		]
 	},
 	plugins: [
@@ -71,8 +87,16 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
 		}),
-		new CleanWebpackPlugin(),
+		new CopyPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, "src", "assets/images"),
+					to: "assets/images"
+				}
+			]
+		}),
 		new Dotenv(),
+		new CleanWebpackPlugin(),
 	],
 	optimization: {
 		minimize: true,

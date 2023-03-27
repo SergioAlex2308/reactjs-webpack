@@ -223,11 +223,8 @@ th {
 }
 
 body {
-	background-color: #f9f9f9;
+	/* background-color: #f9f9f9; */
 	font-family: Ubuntu, sans-serif;
-}
-.title {
-	text-align: center;
 }
 
 .center {
